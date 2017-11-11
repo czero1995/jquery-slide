@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+
+<head>
+	<meta charset="UTF-8">
+	<title>侧滑删除效果</title>
+	<meta name="format-detection" content="telephone=no, email=no" />
+	<meta content="width=device-width, initial-scale=1,maximum-scale=1,maximum-scale=1, user-scalable=no" name="viewport">
+	<script src="rem.js"></script>
+	<style>
+		body {
+			font-size: 0.24rem;
+			color: #666;
+			margin: 0;
+			padding: 0;
+		}
+		.touch{
+			border-bottom: 1px solid #ccc;
+			
+			height: 1.2rem;
+		}
+		.user-info {
+			display: flex;
+			justify-content: space-between;
+			width: 80%;
+			padding-top: .2rem;
+			margin-right: .2rem;
+		}
+		
+		.my-address-list {
+			overflow: hidden;
+		}
+		
+		.selected {
+			-webkit-transform: translate(-18%, 0);
+			-webkit-transition: all 0.3s linear;
+		}
+		
+		.item {
+			padding: 0 0.15rem;
+			width: 120%;
+			-webkit-transition: all 0.3s linear;
+			-webkit-user-select: none;
+			position: relative;
+			padding-bottom: .3rem;	
+		}
+		
+		.remove {
+			background-color: #ff0000;
+			color: #fff;
+			width: 18%;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			text-align: center;
+			text-decoration: none;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+		
+		.list {
+			width: 100%;
+		}
+		
+		.address-info {
+			padding-top: .2rem;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="my-address-list" id="my-address-list">
+		<div class="touch" >
+			<div class="item">
+				<div class="list">
+					<div class="user-info">
+						<span class="name">收货人姓名: 凡几</span>
+						<span class="phone">12345678912</span>
+					</div>
+					
+					<div class="address-info">详细地址: 深圳市南山区</div>
+				</div>
+				<div class="remove">删除</div>
+			</div>
+		</div>
+		<div class="touch" >
+			<div class="item">
+				<div class="list">
+					<div class="user-info">
+						<span class="name">收货人姓名: 凡几</span>
+						<span class="phone">12345678912</span>
+					</div>
+					<div class="remove">删除</div>
+					<div class="address-info">详细地址: 深圳市南山区</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<script src="jquery.js"></script>
+		<script src="jquery_mobile.js"></script>
+		<script>
+			$(function() {
+				$(".item").on("swipeleft", function() {
+					var index = $(this).index('.item');
+					$('.item').removeClass('selected');
+					$('.item').eq(index).addClass('selected');
+					$('.remove').on("click", function() {
+						//执行删除效果
+						$('.touch').eq(index).stop().animate({
+							height: "0",
+							margin: "0"
+						}, 300, function() {
+							$(this).remove();
+						})
+					})
+				}).on("swiperight", function() {
+					$('.item').removeClass('selected');
+				})
+
+			})
+		</script>
+</body>
+
+</html>
